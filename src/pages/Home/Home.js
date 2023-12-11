@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
-import { IntroModal } from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
 
 const Home = () => {
   const [mainCategories, setMainCategories] = useState([]);
