@@ -22,7 +22,14 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm ci
-      - run: npm run build --if-present
+      - name: Build and Deploy
+        run: |
+          REACT_APP_BACK_SERVER_URL=${{ secrets.REACT_APP_BACK_SERVER_URL }} \
+          REACT_APP_EXCEPT_SCHEMA_URL=${{ secrets.REACT_APP_EXCEPT_SCHEMA_URL }} \
+          npm run build --if-present
+        env:
+          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+          ANOTHER_API_KEY: ${{ secrets.ANOTHER_API_KEY }}
       - name: Deploy to AWS
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
