@@ -12,13 +12,13 @@ const CardModal = () => {
       footer={[
         <div className="icon" onClick={(e) => setLoginOpen(false)}>
           <div className="iconimg">
-            <img src="kakao.png" />
+            <img src="kakao.png" alt="icon_kakao" />
           </div>
           <p>kakao</p>
         </div>,
         <div className="icon" onClick={(e) => setLoginOpen(false)}>
           <div className="iconimg">
-            <img src="harry.png" />
+            <img src="harry.png" alt="icon_guest" />
           </div>
           <p>Guest</p>
         </div>,
