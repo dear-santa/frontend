@@ -1,3 +1,201 @@
+@import '../styles/font.css';
+
 body::-webkit-scrollbar {
   display: none;
+}
+
+/* depth 0 : 전체 화면 */
+.container {
+  color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-areas: 
+  "side main"
+  "side main"
+  "side main"
+  "side main";
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 1fr;
+}
+
+/* depth 1 : 화면 왼쪽영역(메뉴바, 로그 등) */
+.side {
+  grid-area: side;
+  width: 100%;
+  height: 100%;
+  border: 0.5px solid rgb(0, 0, 0, 0.1); /* 검정색 실선 경계선 */
+
+  display: grid;
+  grid-template-areas: 
+  "logo_container"
+  "menu_container"
+  "bottom_container";
+  grid-template-rows:20% 55% 25%;
+}
+
+/* depth 2 */
+.logo_container {
+  grid-area: logo_container; 
+  width: 100%;
+  height: 100%;
+  border-bottom: 0.5px solid rgb(0, 0, 0, 0.1); /* 검정색 실선 경계선 */
+
+  display: grid;
+  grid-template-areas: 
+  "logo_img logo_title"
+  "logo_subtitle logo_subtitle";
+  grid-template-rows: 60% 40%;
+  grid-template-columns: 30% 70%;
+}
+
+.logo_img {
+  grid-area: logo_img; 
+
+  padding-top: 15%;
+  padding-left: 20%;
+}
+
+.logo_img_bear {
+  width: 80%;
+}
+
+.logo_title {
+  grid-area: logo_title; 
+  font-family: "NotoSansKR-Bold";
+  font-size: large;
+  color: rgb(20, 20, 20);
+  padding-top:15%;
+  padding-left: 10%;
+}
+
+.logo_subtitle {
+  grid-area: logo_subtitle; 
+  font-family: "NotoSansKR-Normal";
+  font-size: 50%;
+  color: rgb(80, 80, 80, 0.5);
+
+  padding-left: 10%;
+}
+
+/* depth 2 */
+.menu_container {
+  grid-area: menu_container; 
+  width: 100%;
+  height: 100%;
+  color: black;
+}
+
+/* depth 3 */
+.menu {
+  grid-area: menu; 
+  width: 100%;
+  height: 20%;
+
+  display: grid;
+  grid-template-areas: 
+  "menu_icon menu_title"
+  "menu_icon menu_subtitle";
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 40% 60%;
+  border-bottom: 0.5px solid rgb(0, 0, 0, 0.1);
+}
+
+/* depth 3 */
+.menu_emoji {
+  grid-area: menu_icon; 
+  width: 100%;
+  height: 100%;
+  padding-left: 35%;
+  padding-top: 40%;
+}
+
+/* depth 3 */
+.menu_title {
+  grid-area: menu_title; 
+  width: 100%;
+  height: 100%;
+  color: rgb(15, 15, 15);
+
+  font-family: "NotoSansKR-Bold";
+  font-size: 60%;
+  padding-top: 5%;
+
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬을 위해 추가 */
+  padding-left: 5%;
+  /* justify-content: center; 가로 중앙 정렬을 위해 추가 */
+}
+
+/* depth 3 */
+.menu_subtitle {
+  grid-area: menu_subtitle; 
+  width: 100%;
+  height: 100%;
+
+  font-family: "NotoSansKR-Normal";
+  color: rgb(80, 80, 80, 0.6);
+  font-size: 50%;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬을 위해 추가 */
+  padding-left: 5%;
+}
+
+/* depth 2 */
+.bottom_container {
+  grid-area: bottom_container; 
+  width: 100%;
+  height: 100%;
+}
+
+/* depth 1 : 메인화면(배너, 보드 등) */
+.main {
+  grid-area: main;
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-areas: 
+  "header_container"
+  "banner_container"
+  "select_container"
+  "board_container";
+  grid-template-rows: 10% 30% 10% 50%;
+}
+
+/* depth 2 */
+.header_container {
+  grid-area: header_container; 
+  width: 100%;
+  height: 100%;
+}
+
+/* depth 2 */
+.banner_container {
+  grid-area: banner_container; 
+  width: 100%;
+  height: 100%;
+}
+
+/* depth 2 */
+.select_container {
+  grid-area: select_container; 
+  width: 100%;
+  height: 100%;
+}
+
+/* depth 2 */
+.board_container {
+  grid-area: board_container; 
+  width: 100%;
+  height: 100%;
 }
