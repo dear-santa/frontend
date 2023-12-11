@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
+import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
+import CardModal from "../LoginModal/CardModal";
 
 const Home = () => {
   const [mainCategories, setMainCategories] = useState([]);
@@ -36,12 +38,23 @@ const Home = () => {
     setCurrentModal(null);
   };
 
+  const openCardModal = () => {
+    closeModal(); // IntroModal 닫기
+    openModal(<CardModal />);
+  };
+
+  useEffect(() => {
+    const handleLoad = () => {
+      openModal(
+        <IntroModal closeModal={closeModal} openCardModal={openCardModal} />
+      );
+    };
+    handleLoad();
+  }, []);
+
   return (
     <div>
-      {/* <button onClick={() => openModal(<IntroModal closeModal={closeModal} />)}>
-        모달창 열기
-      </button>
-      {currentModal && currentModal} */}
+      {currentModal && currentModal}
       <div className="container">
         <div className="side">
           <div className="logo_container">
