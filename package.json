@@ -38,7 +38,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://$REACT_APP_EXCEPT_SCHEMA_URL",
+  "proxy": "http://3.37.219.154",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "http-proxy-middleware": "^2.0.6"
