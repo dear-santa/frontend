@@ -7,10 +7,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
-    "multer": "^1.4.5-lts.1",
+
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^9.0.4",
+    "react-modal": "^3.16.1",
+
     "react-router-dom": "^6.20.1",
     "react-scripts": "5.0.1",
     "redux": "^5.0.0",
@@ -40,7 +41,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "http://3.37.219.154",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "http-proxy-middleware": "^2.0.6"

@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "../styles/reset.css";
+
+/* 변수 */
+:root {
+  --white: #FFFFFF;
+  --yellow: #FFD43E;
+  --green: #3BB527;
+  --red: #FF0000;
+  --blue: #0475F4;
+  --navy: #1C2E5D;
+  --dark-gray: rgba(55, 65, 81, 1);
+  --gray: rgba(80, 80, 80, 0.5);
+  --light-gray: rgba(245, 245, 245, 1);
+
+  --font-main: 'Noto Sans KR', sans-serif;
+  
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+}
+
+* {
+  font-family: var(--font-main);
+  color: var(--dark-gray);
+}
+
+.overlay_modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-gray); /* 임시 셋팅 */
+}
+
+.modal_container {
+  position: relative;
+  width: 897px;
+  height: 664px;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+  overflow-y: auto;
+}
+
+.board_container {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+/* 
+.board_header {  
+  width: 90%;
+  margin: auto;
+} */
+
+.board_title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.info_container {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-areas: "user_image user_name updated_date";
+  grid-template-columns: 10% 55% 35%;
+  align-items: center;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--dark-gray);
+}
+
+.user_image {
+  grid-area: user_image;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.user_name {
+  grid-area: user_name;
+  font-weight: 500;
+}
+
+.updated_date {
+  grid-area: updated_date;
+  color: var(--gray);
+}
+
+.board_image {
+  height: 300px;
+}
+
+.content_container {
+  color: var(--dark-gray);
+}
+
+.count_container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--gray);
+}
+
+.comment_list {
+  display: grid;
+  grid-template-areas: "comment_info_container"
+    "comment";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr;
+  background-color: var(--light-gray);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.comment_info_container {
+  grid-area: comment_info_container;
+}
+
+.comment {
+  grid-area: comment;
+}
