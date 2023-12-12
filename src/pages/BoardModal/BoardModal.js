@@ -35,6 +35,7 @@ export default function BoardModal() {
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boardId]);
   if (!board) return null;
 
