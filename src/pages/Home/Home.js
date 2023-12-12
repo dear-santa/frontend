@@ -3,6 +3,7 @@ import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
 import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
 import CardModal from "../LoginModal/CardModal";
+import BoardModal from "../BoardModal/BoardModal";
 
 const Home = () => {
   const [mainCategories, setMainCategories] = useState([]);
@@ -42,7 +43,7 @@ const Home = () => {
     closeModal(); // IntroModal 닫기
     openModal(<CardModal />);
   };
-
+  
   useEffect(() => {
     const handleLoad = () => {
       openModal(
@@ -83,7 +84,7 @@ const Home = () => {
           </div>
           <div className="bottom_container">bottom_container</div>
         </div>
-        <div className="main">
+        <div className="main">          
           <div className="header_container">header_container</div>
           <div className="banner_container">banner_container</div>
           <div className="select_container">select_container</div>
