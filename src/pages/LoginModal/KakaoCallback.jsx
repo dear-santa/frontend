@@ -33,7 +33,7 @@ function KakaoCallback() {
         //에러발생 시 경고처리 후 login 페이지로 전환
         console.log(err);
 
-        // window.location.href = "/";
+        //window.location.href = "/";
       });
   }, []);
 
