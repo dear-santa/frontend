@@ -45,10 +45,10 @@ const Home = () => {
   };
 
   const IsGuest = () => {
-    let token = localStorage.getItem("jwttoken");
-    console.log(token);
-    console.log(token === null);
-    return Object.is(token, null);
+    let accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+    console.log(accessToken === null);
+    return Object.is(accessToken, null);
   };
 
   useEffect(() => {

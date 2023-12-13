@@ -18,14 +18,12 @@ function KakaoCallback() {
       data: sendData,
       headers: {
         "Content-type": "application/json",
-        "Authorization": auth,
+        Authorization: auth,
       },
     })
       .then((response) => {
         //spring에서 발급된 jwt localStorage 저장
-        console.log("1");
-        localStorage.setItem("token", response.headers.token);
-        console.log(2);
+        localStorage.setItem("accessToken", response.data.accessToken);
         //메인 페이지로 이동
         window.location.href = "/";
       })
@@ -33,7 +31,7 @@ function KakaoCallback() {
         //에러발생 시 경고처리 후 login 페이지로 전환
         console.log(err);
 
-        //window.location.href = "/";
+        window.location.href = "/";
       });
   }, []);
 

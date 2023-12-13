@@ -4,6 +4,7 @@ import KakaoLogin from "./KakaoLogin";
 
 const CardModal = () => {
   const [modalOpen, setLoginOpen] = useState(true);
+  const getToken = localStorage.getItem("accessToken");
   return (
     <LoginBaseModal
       open={modalOpen}
@@ -17,7 +18,15 @@ const CardModal = () => {
           </div>
           <p>kakao</p>
         </div>,
-        <div className="icon" onClick={(e) => setLoginOpen(false)}>
+        <div
+          className="icon"
+          onClick={() => {
+            setLoginOpen(false);
+            if (getToken === null) {
+              localStorage.setItem("accessToken", "guestToken");
+            }
+          }}
+        >
           <div className="iconimg">
             <img src="harry.png" alt="icon_guest" />
           </div>
