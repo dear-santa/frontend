@@ -4,7 +4,6 @@ import Select from "react-select";
 
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
-import he from "he";
 
 const Home = () => {
   const selectOptions = [
@@ -17,7 +16,6 @@ const Home = () => {
   const [mainCategories, setMainCategories] = useState([]);
   const [boardListDto, setBoardListDto] = useState([]);
   const [bannerListDto, setBannerListDto] = useState([]);
-  const [currentModal, setCurrentModal] = useState(null);
 
   // 조회
   const [selectedMainCategory, setSelectedMainCategory] = useState("HOME");
@@ -107,14 +105,6 @@ const Home = () => {
     };
   }, [handleScroll]);
 
-  const openModal = (modalComponent) => {
-    setCurrentModal(modalComponent);
-  };
-
-  const closeModal = () => {
-    setCurrentModal(null);
-  };
-
   const handleCategoryClick = (category) => {
     // Update the selected category when a category is clicked
     setSelectedMainCategory(category);
@@ -126,11 +116,7 @@ const Home = () => {
   };
 
   return (
-    <div>
-      {/* <button onClick={() => openModal(<IntroModal closeModal={closeModal} />)}>
-        모달창 열기
-      </button>
-      {currentModal && currentModal} */}
+    <div className="main">
       <div className="container">
         <div className="side">
           <div className="logo_container">
@@ -221,13 +207,13 @@ const Home = () => {
                 </div>
                 <div className="board_writer">
                   <div className="board_writer_img">
-                    {/* <img
-                      className="logo_img_bear"
-                      src={board.imgUrl}
-                      alt="logo_img"
-                    /> */}
+                    <img
+                      className="board_writer_img_url"
+                      src={board.userImgUrl}
+                      alt={`banner_img_${board.userNickname}`}
+                    />
                   </div>
-                  <div className="board_writer_name">{board.userId}</div>
+                  <div className="board_writer_name">{board.userNickname}</div>
                 </div>
               </div>
             ))}
