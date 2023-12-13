@@ -3,15 +3,17 @@
 import Select from "react-select";
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
-import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
-import CardModal from "../LoginModal/CardModal";
-import BoardModal from "../BoardModal/BoardModal";
 import Banner from "./Banner";
 import Header from "./Header";
 import BoardContainer from "./BoardContainer";
 import LogoContainer from "./LogoContainer";
+import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
+import CardModal from "../LoginModal/CardModal";
+import BoardModal from "../BoardModal/BoardModal";
 
 const Home = () => {
+  const [currentModal, setCurrentModal] = useState(null);
+
   const selectOptions = [
     { value: "LATEST", label: "최신순" },
     { value: "VIEW_COUNT", label: "조회수" },
@@ -132,7 +134,7 @@ const Home = () => {
       const response = await fetch(apiPath, {
         headers: {
           Authoriaztion:
-            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJtZW1iZXJJZCI6IjgwMDEzYzQ4LWU5MzEtNDFiOC04MjVjLWM4YzNkYjdhZjU5MCIsImlzcyI6ImRlYXJzYW50YSIsImlhdCI6MTcwMjQwMjIyOCwiZXhwIjoxNzAzNDAyMjI4fQ.fnxrSjzy8OVs00oqnfe7UiNA86DsiBdkfIuKIg40-g--E3Zfqxn0K2sI4aXlc2YAT9fF4dri94ldvsoA71nLEw",
+            "Bearer eyJhbGciOiJIUzUxMiJ9..fnxrSjzy8OVs00oqnfe7UiNA86DsiBdkfIuKIg40-g--E3Zfqxn0K2sI4aXlc2YAT9fF4dri94ldvsoA71nLEw",
         },
         method: "GET",
       });
@@ -193,11 +195,6 @@ const Home = () => {
           },
           method: "GET",
         }
-    const handleLoad = () => {
-      openModal(
-        IsGuest() ? (
-          <IntroModal closeModal={closeModal} openCardModal={openCardModal} />
-        ) : null
       );
       const data = await response.json();
 
@@ -212,8 +209,42 @@ const Home = () => {
     }
   };
 
+  const openModal = (modalComponent) => {
+    setCurrentModal(modalComponent);
+  };
+
+  const closeModal = () => {
+    setCurrentModal(null);
+  };
+
+  const openCardModal = () => {
+    closeModal(); // IntroModal 닫기
+    openModal(<CardModal />);
+  };
+
+  const IsGuest = () => {
+    let accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+    console.log(accessToken === null);
+    return Object.is(accessToken, null);
+  };
+
+  useEffect(() => {
+    const handleLoad = () => {
+      openModal(
+        IsGuest() ? (
+          <IntroModal closeModal={closeModal} openCardModal={openCardModal} />
+        ) : null
+      );
+    };
+    handleLoad();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="main">
+      {currentModal && currentModal}
+
       <div className="container">
         <div className="side">
           <LogoContainer />
