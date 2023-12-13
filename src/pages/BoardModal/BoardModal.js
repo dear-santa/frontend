@@ -20,6 +20,13 @@ export default function BoardModal() {
   const navigate = useNavigate();
   const isModal = location.state && location.state.modal;
 
+  const [modalStyle, setModalStyle] = useState({
+    overlay: {},
+    content: {
+      backgroundImage: "url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png)"
+    }
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,8 +34,6 @@ export default function BoardModal() {
         setBoard(response1.data);
         const response2 = await axios.get(`/api/v1/board/${boardId}/reply`);
         setCommentList(response2.data);
-        console.log(commentList);
-        console.log(commentList.replyListDto);
       } catch (error) {
         console.error("There was an error!", error);
       }
@@ -44,15 +49,27 @@ export default function BoardModal() {
     navigate(-1);
   };
 
+  const changeBackground = (newImage) => {
+    setModalStyle({
+      overlay: {},
+      content: {
+        backgroundImage: `url(${newImage})`
+      }
+    })
+  }
+
   const modal = (
-    <Modal className="modal_container" overlayClassName="overlay_modal" isOpen={true} onRequestClose={back}>
+    <Modal className="modal_container" overlayClassName="overlay_modal" isOpen={true} onRequestClose={back} style={modalStyle}>
       <article className="board_container">
         <header className="board_header">
+          <div className="button_container">
+            <button className="bg_button" onClick={() => changeBackground('https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_1.png')}></button>
+            <button className="bg_button" onClick={() => changeBackground('https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png')}></button>
+          </div>
           <h1 className="board_title">{board.title}</h1>
           <div className="info_container">
-            <img className="user_image" src={board.imgUrl} alt={board.imgUrl}></img>
-            {/* <p>{board.userId}</p> */}
-            <p className="user_name">불 붙은 산타</p>
+            <img className="user_image" src={board.userImgUrl} alt={board.userImgUrl}></img>
+            <p className="user_name">{board.userNickname}</p>
             <p className="updated_date">{formatDate(board.updatedDate)}</p>
           </div>
         </header>
@@ -75,7 +92,7 @@ export default function BoardModal() {
             {commentList && commentList.replyListDto && commentList.replyListDto.map((comment, index) => (
               <div key={index} className="comment_list">
                 <div className="info_container comment_info_container">
-                  <img className="user_image" src={board.imgUrl} alt={board.imgUrl}></img>
+                  <img className="user_image" src={board.userImgUrl} alt={board.userImgUrl}></img>
                   {/* <p>{comment.userId}</p> */}
                   <p className="user_name">불 붙은 산타</p>
                   <p className="updated_date">{formatDate(comment.updatedDate)}</p>

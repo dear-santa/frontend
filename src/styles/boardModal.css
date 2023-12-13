@@ -25,6 +25,10 @@
   color: var(--dark-gray);
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .overlay_modal {
   position: fixed;
   top: 0;
@@ -43,7 +47,6 @@
   height: 664px;
   outline: none;
   box-sizing: border-box;
-  background: #fff;
   overflow-y: auto;
 }
 
@@ -54,6 +57,25 @@
   flex-direction: column;
   gap: 20px;
 }
+
+.button_container {
+  display: flex;
+}
+
+.bg_button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.bg_button:first-child {
+  background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png);
+}
+
+.bg_button:nth-child(2) {
+  background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png);
+}
+
 /* 
 .board_header {  
   width: 90%;
@@ -67,8 +89,6 @@
 
 .info_container {
   display: grid;
-  width: 100%;
-  height: 100%;
   grid-template-areas: "user_image user_name updated_date";
   grid-template-columns: 10% 55% 35%;
   align-items: center;
