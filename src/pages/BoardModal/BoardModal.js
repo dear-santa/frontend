@@ -15,6 +15,7 @@ function formatDate(timestamp) {
 export default function BoardModal() {
   const [board, setBoard] = useState(null);
   const [commentList, setCommentList] = useState({replyListDto: []});
+  const [content, setContent] = useState('');
   const { boardId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -27,18 +28,19 @@ export default function BoardModal() {
     }
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response1 = await axios.get(`/api/v1/board/${boardId}`);
-        setBoard(response1.data);
-        const response2 = await axios.get(`/api/v1/board/${boardId}/reply`);
-        setCommentList(response2.data);
-      } catch (error) {
-        console.error("There was an error!", error);
-      }
-    };
+  // 게시글 및 댓글 가져오기
+  const fetchData = async () => {
+    try {
+      const response1 = await axios.get(`/api/v1/board/${boardId}`);
+      setBoard(response1.data);
+      const response2 = await axios.get(`/api/v1/board/${boardId}/reply`);
+      setCommentList(response2.data);
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boardId]);
@@ -56,6 +58,28 @@ export default function BoardModal() {
         backgroundImage: `url(${newImage})`
       }
     })
+  }
+  
+  const handleCommentChange = (e) => {
+    setContent(e.target.value);
+  }
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const response = await axios({
+      url: `/api/v1/board/${boardId}/reply/new`,
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      data: JSON.stringify({ content })
+    });
+    
+    if (response.status === 200) {
+      setContent('');
+      fetchData();
+    } else {
+      alert("댓글 등록에 실패했습니다.");
+    }
   }
 
   const modal = (
@@ -82,19 +106,19 @@ export default function BoardModal() {
         <section className="count_container">
           <p aria-label="like_count">{board.likeCount}</p>
           <p aria-label="view_count">{board.viewCount}</p>
+          <p aria-label="reply_count">{board.replyCount}</p>
         </section>
         <section className="comment_container">
-          <div className="comment_input_container">
-            <input className="comment_input" type="text" placeholder="댓글을 입력하세요."></input>
-            <button className="comment_submit">등록</button>
-          </div>
+          <form className="comment_input_container" onSubmit={handleSubmit}>
+            <input className="comment_input" type="text" name="comment" placeholder="댓글을 입력하세요." value={content} onChange={handleCommentChange}></input>
+            <button className="comment_submit" type="submit">등록</button>
+          </form>
           <div className="comment_list_container">
             {commentList && commentList.replyListDto && commentList.replyListDto.map((comment, index) => (
               <div key={index} className="comment_list">
                 <div className="info_container comment_info_container">
-                  <img className="user_image" src={board.userImgUrl} alt={board.userImgUrl}></img>
-                  {/* <p>{comment.userId}</p> */}
-                  <p className="user_name">불 붙은 산타</p>
+                  <img className="user_image" src={comment.userImgUrl} alt={comment.userImgUrl}></img>
+                  <p className="user_name">{comment.userNickname}</p>
                   <p className="updated_date">{formatDate(comment.updatedDate)}</p>
                 </div>
                 <div className="comment">
