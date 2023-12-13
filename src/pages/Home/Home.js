@@ -43,11 +43,20 @@ const Home = () => {
     closeModal(); // IntroModal 닫기
     openModal(<CardModal />);
   };
-  
+
+  const IsGuest = () => {
+    let token = localStorage.getItem("jwttoken");
+    console.log(token);
+    console.log(token === null);
+    return Object.is(token, null);
+  };
+
   useEffect(() => {
     const handleLoad = () => {
       openModal(
-        <IntroModal closeModal={closeModal} openCardModal={openCardModal} />
+        IsGuest() ? (
+          <IntroModal closeModal={closeModal} openCardModal={openCardModal} />
+        ) : null
       );
     };
     handleLoad();
@@ -84,7 +93,7 @@ const Home = () => {
           </div>
           <div className="bottom_container">bottom_container</div>
         </div>
-        <div className="main">          
+        <div className="main">
           <div className="header_container">header_container</div>
           <div className="banner_container">banner_container</div>
           <div className="select_container">select_container</div>
