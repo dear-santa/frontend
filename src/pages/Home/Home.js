@@ -40,6 +40,7 @@ const Home = () => {
           method: "GET",
         });
         const data = await response.json();
+        console.log("categories api");
         console.log(data.mainCategoriesDto);
         setMainCategories(data.mainCategoriesDto);
 
@@ -115,17 +116,23 @@ const Home = () => {
     // Update the selected category when a category is clicked
     setSelectedMainCategory(category);
 
+    let apiPath = "";
+    console.log("category " + category);
+    if (category === "MY_PAGE") {
+      console.log("category === MY_PAGE " + (category === "MY_PAGE"));
+      apiPath = `/api/v1/auth/board?pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
+    } else {
+      apiPath = `/api/v1/board/category?mainCategory=${category}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
+    }
+
     try {
-      // Fetch board list based on selected category and page size
-      const response = await fetch(
-        `/api/v1/board/category?mainCategory=${category}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-          method: "GET",
-        }
-      );
+      const response = await fetch(apiPath, {
+        headers: {
+          Authoriaztion:
+            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJtZW1iZXJJZCI6IjgwMDEzYzQ4LWU5MzEtNDFiOC04MjVjLWM4YzNkYjdhZjU5MCIsImlzcyI6ImRlYXJzYW50YSIsImlhdCI6MTcwMjQwMjIyOCwiZXhwIjoxNzAzNDAyMjI4fQ.fnxrSjzy8OVs00oqnfe7UiNA86DsiBdkfIuKIg40-g--E3Zfqxn0K2sI4aXlc2YAT9fF4dri94ldvsoA71nLEw",
+        },
+        method: "GET",
+      });
 
       const data = await response.json();
 
@@ -265,7 +272,25 @@ const Home = () => {
             </div>
           </div>
           <div className="board_container">
-            <BoardContainer boardListDto={boardListDto} />
+            {boardListDto.map((board, index) => (
+              <div className="board_element" key={index}>
+                <div className="board_content">
+                  <div className="board_title">{board.title}</div>
+                  {/* <div className="board_hashtag">{board.hashtags}</div> */}
+                  <div className="board_preview">{board.content}</div>
+                </div>
+                <div className="board_writer">
+                  <div className="board_writer_img">
+                    <img
+                      className="board_writer_img_url"
+                      src={board.userImgUrl}
+                      alt={`banner_img_${board.userNickname}`}
+                    />
+                  </div>
+                  <div className="board_writer_name">{board.userNickname}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
