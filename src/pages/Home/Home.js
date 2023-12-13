@@ -1,9 +1,12 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line
 import Select from "react-select";
-
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
+import Banner from "./Banner";
+import Header from "./Header";
+import BoardContainer from "./BoardContainer";
+import LogoContainer from "./LogoContainer";
 
 const Home = () => {
   const selectOptions = [
@@ -145,20 +148,7 @@ const Home = () => {
     <div className="main">
       <div className="container">
         <div className="side">
-          <div className="logo_container">
-            <div className="logo_img">
-              <img
-                className="logo_img_bear"
-                src="/logo_img.png"
-                alt="logo_img"
-              />
-            </div>
-            <div className="logo_title">Dear Santa</div>
-            <div className="logo_subtitle">
-              크리스마스를 더현대서울에서 특별하게 보내세요. <br></br>
-              가장 기억에 남는 크리스마스 추억이 있나요?
-            </div>
-          </div>
+          <LogoContainer />
           <div className="menu_container">
             {mainCategories.map((category, index) => (
               <div
@@ -175,37 +165,8 @@ const Home = () => {
           <div className="bottom_container"></div>
         </div>
         <div className="main">
-          <div className="header_container">
-            <div className="header_profile"></div>
-          </div>
-
-          {/* 배너 */}
-          <div className="banner_container">
-            {bannerListDto.length === 1 ? (
-              // 1개일 때의 UI
-              <div className="single-banner">
-                <img
-                  className="banner_img"
-                  src={bannerListDto[0].imgUrl}
-                  alt={`banner_img_${bannerListDto[0].subCategory}`}
-                />
-              </div>
-            ) : (
-              // 4개일 때의 UI
-              <div className="banners">
-                {bannerListDto.map((banner, index) => (
-                  <div className="banner" key={index}>
-                    <img
-                      className="banner_img"
-                      src={banner.imgUrl}
-                      alt={`banner_img_${banner.subCategory}`}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
+          <Header />
+          <Banner bannerListDto={bannerListDto} />
           <div className="select_container">
             <div className="bar_container">
               <Select
@@ -221,29 +182,8 @@ const Home = () => {
               <div className="write_btn">글 작성 버튼</div>
             </div>
           </div>
-
-          {/* 보드판 */}
           <div className="board_container">
-            {boardListDto.map((board, index) => (
-              <div className="board_element" key={index}>
-                <div className="board_content">
-                  <div className="board_title">{board.title}</div>
-                  {/* <div className="board_hashtag">{board.hashtags}</div> */}
-                  <div className="board_preview">{board.content}</div>
-                </div>
-                <div className="board_writer">
-                  <div className="board_writer_img">
-                    <img
-                      className="board_writer_img_url"
-                      src={board.userImgUrl}
-                      alt={`banner_img_${board.userNickname}`}
-                    />
-                  </div>
-                  <div className="board_writer_name">{board.userNickname}</div>
-                </div>
-              </div>
-            ))}
-            {/* 끝 */}
+            <BoardContainer boardListDto={boardListDto} />
           </div>
         </div>
       </div>
