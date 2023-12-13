@@ -3,6 +3,9 @@
 import Select from "react-select";
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
+import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
+import CardModal from "../LoginModal/CardModal";
+import BoardModal from "../BoardModal/BoardModal";
 import Banner from "./Banner";
 import Header from "./Header";
 import BoardContainer from "./BoardContainer";
@@ -190,6 +193,11 @@ const Home = () => {
           },
           method: "GET",
         }
+    const handleLoad = () => {
+      openModal(
+        IsGuest() ? (
+          <IntroModal closeModal={closeModal} openCardModal={openCardModal} />
+        ) : null
       );
       const data = await response.json();
 
