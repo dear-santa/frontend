@@ -53,7 +53,10 @@ const Home = () => {
 
         const boardListData = await boardListResponse.json();
 
-        // Update boardListDto with the new data
+        // 이전 데이터를 버리고 새로운 데이터로 대체
+        setBoardListDto(boardListData.boardListDto);
+
+        // 나머지는 유지하고 새로운 데이터만 추가
         setBoardListDto((prevBoardList) => [
           ...prevBoardList,
           ...boardListData.boardListDto,
@@ -110,9 +113,32 @@ const Home = () => {
     setSelectedMainCategory(category);
   };
 
-  const handleSortingSelectChange = (selectedOption) => {
-    // Update the selected sorting option when the user changes it
-    setSelectedSorting(selectedOption.value);
+  const handleSortingSelectChange = async (selectedOption) => {
+    try {
+      // 기존의 게시글 목록을 초기화합니다.
+      setBoardListDto([]);
+
+      // 선택된 정렬 기준에 해당하는 게시글을 불러옵니다.
+      const response = await fetch(
+        `/api/v1/board/category?mainCategory=${selectedMainCategory}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedOption.value}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+          method: "GET",
+        }
+      );
+      const data = await response.json();
+
+      // 새로운 데이터로 갱신합니다.
+      setBoardListDto(data.boardListDto);
+
+      // 페이징을 초기화합니다.
+      setPageNum(1);
+      setHasMoreData(true);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   return (
