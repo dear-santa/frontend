@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import Base from "./BaseModal";
 
 // 첫 화면 모달
-export const IntroModal = ({ closeModal }) => (
-  <div className="modal">
-    <div className="modal-content">
-      <span className="close" onClick={closeModal}></span>
-      <p>첫 화면</p>
-    </div>
-  </div>
-);
+const IntroModal = ({ closeModal, openCardModal }) => {
+  const [modalOpen] = useState(true);
+
+  return (
+    <Base
+      open={modalOpen}
+      width={500}
+      title="DEAR SANTA"
+      footer={[
+        <div className="card">
+          <div className="clickMe" onClick={() => openCardModal()}>
+            <div>
+              <img src="harry.png" alt="icon" />
+              <div>Open Me</div>
+            </div>
+          </div>
+        </div>,
+      ]}
+    ></Base>
+  );
+};
+
+export default IntroModal;
