@@ -162,6 +162,7 @@ body::-webkit-scrollbar {
   grid-area: main;
   width: 100%;
   height: 100%;
+  overflow: hidden; /* 이 부분을 추가하여 .main 영역에서 스크롤바를 숨깁니다. */
 
   display: grid;
   grid-template-areas: 
@@ -169,7 +170,7 @@ body::-webkit-scrollbar {
   "banner_container"
   "select_container"
   "board_container";
-  grid-template-rows: 10% 30% 10% 50%;
+  grid-template-rows: 10% 30% 8% 52%;
 }
 
 /* depth 2 */
@@ -177,13 +178,49 @@ body::-webkit-scrollbar {
   grid-area: header_container; 
   width: 100%;
   height: 100%;
+
+  border-bottom: 0.5px solid rgb(0, 0, 0, 0.1); /* 검정색 실선 경계선 */
 }
 
-/* depth 2 */
 .banner_container {
   grid-area: banner_container; 
+  width: 70%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap; /* 이미지를 감싸는 라인 래핑 활성화 */
+  gap: 10px; /* 이미지 사이의 간격을 설정합니다. */
+  justify-content: center;
+  margin-left: 15%;
+  margin-top: 2%;
+  margin-bottom: 8%;
+}
+
+.banners {
+  display: flex;
+}
+
+.banner {
+  width: 90%; /* 이미지의 너비를 조절합니다. */
+  min-height: 50%; /* 이미지의 최소 높이를 조절합니다. */
+  margin-right: 1%; /* 각 banner 사이의 간격을 조절합니다. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner_img {
   width: 100%;
-  height: 100%;
+  min-height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.single-banner {
+  width: 95%;
+  height: 90%;
 }
 
 /* depth 2 */
@@ -191,11 +228,200 @@ body::-webkit-scrollbar {
   grid-area: select_container; 
   width: 100%;
   height: 100%;
+
+  /* 중앙 정렬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* depth 2 */
+.bar_container {
+  width: 70%;
+  height: 100%;
+
+  display:grid;
+  grid-template-areas: 
+  "sorted_bar search_bar write_btn";
+  grid-template-columns: 15% 65% 20%; 
+}
+
+.write_btn {
+  grid-area: write_btn; 
+  width: 80%;
+  height: 50%;
+
+    /* 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+  background-color: rgb(239, 239, 239);
+}
+
+.sorted_bar {
+  grid-area: sorted_bar; 
+  width: 80%;
+  height: 100%;
+
+  /* 중앙 정렬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "NotoSansKR-Normal";
+  font-size: 50%;
+  color: rgba(129, 129, 129, 0.5);
+
+  border-radius: 10px;
+}
+
+.search_bar {
+  grid-area: search_bar; 
+  width: 80%;
+  height: 40%;
+  font-family: "NotoSansKR-Normal";
+  font-size: 50%;
+  color: rgb(80, 80, 80, 0.5);
+  border-radius: 10px;
+  display: flex; /* Add flex display to use flex properties */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+}
+
+.search_bar_in {
+  background-color: rgb(235, 235, 235);
+}
+
+
+/* depth 2 - 보드판*/
 .board_container {
   grid-area: board_container; 
   width: 100%;
   height: 100%;
+
+  margin-top: 1%;
+  padding-top: 0;
+  
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+  max-height: 60vh; 
+  overflow-y: auto; 
+}
+
+/* depth 3 - 보드 개별 */
+.board_element {
+  display: grid;
+  width: 70%;
+  min-height: 50%;
+  justify-content: center;
+  margin-bottom: 2%;
+
+  grid-template-areas:
+  "board_content board_writer";
+  grid-template-columns: 70% 30%;
+  background-color: rgb(245, 245, 245);
+  border-radius: 30px;
+}
+
+/* 보드 왼쪽 (제목, 내용) */
+.board_content {
+  grid-area: board_content;
+  width: 100%;
+  max-height: 100vh;
+  
+  display: grid;
+  grid-template-areas: 
+  "board_title"
+  "board_hashtag"
+  "board_preview";
+  grid-template-rows: 30% 10% 60%;
+}
+
+.board_title {
+  grid-area: board_title;
+  width: 100%;
+  max-height: 10%;
+  
+  font-family: "NotoSansKR-Bold";
+  font-size: medium;
+  color: rgb(21, 21, 21, 0.8);
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.board_hashtag {
+  grid-area: board_hashtag;
+  width: 100%;
+  height: 100%;
+  
+  font-family: "NotoSansKR-Bold";
+  font-size: small;
+  color: rgba(42, 116, 255, 0.8);
+
+  margin-left: 5%;
+  margin-top: 2%;
+}
+
+.board_preview {
+  grid-area: board_preview;
+  width: 90%;
+  max-height: 12vh;
+  overflow: hidden; /* 초과 내용 감춤 */
+  
+  font-family: "NotoSansKR-Normal";
+  font-size: 50%;
+  color: rgb(80, 80, 80, 0.5);
+
+    /* 중앙 정렬 */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/* 작성자 관련 depth 4 */
+.board_writer {
+  grid-area: board_writer; 
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-areas: 
+  "board_writer_img"
+  "board_writer_name";
+  grid-template-columns: 70% 30%;
+
+  align-items: center;
+  justify-content: center;
+  /* margin-left: 40%; */
+}
+
+.board_writer_img {
+  grid-area: board_writer_img; 
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.board_writer_name {
+  grid-area: board_writer_name; 
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+    
+  font-family: "NotoSansKR-Normal";
+  font-size: 50%;
+  color: rgb(80, 80, 80, 0.5);
 }
