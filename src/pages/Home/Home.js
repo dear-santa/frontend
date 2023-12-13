@@ -111,9 +111,62 @@ const Home = () => {
     };
   }, [handleScroll]);
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = async (category) => {
     // Update the selected category when a category is clicked
     setSelectedMainCategory(category);
+
+    try {
+      // Fetch board list based on selected category and page size
+      const response = await fetch(
+        `/api/v1/board/category?mainCategory=${category}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+          method: "GET",
+        }
+      );
+
+      const data = await response.json();
+
+      // Replace the existing board list with the new data
+      setBoardListDto(data.boardListDto);
+
+      // Reset the page number and enable fetching more data
+      setPageNum(1);
+      setHasMoreData(true);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleBannerClick = async (subCategory) => {
+    // Update the selected subcategory when a banner is clicked
+    setSelectedSubCategory(subCategory);
+
+    try {
+      // Fetch board list based on selected category, subcategory, and other parameters
+      const response = await fetch(
+        `/api/v1/board/category?mainCategory=${selectedMainCategory}&subCategory=${subCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+          method: "GET",
+        }
+      );
+
+      const data = await response.json();
+
+      // Replace the existing board list with the new data
+      setBoardListDto(data.boardListDto);
+
+      // Reset the page number and enable fetching more data
+      setPageNum(1);
+      setHasMoreData(true);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const handleSortingSelectChange = async (selectedOption) => {
@@ -166,7 +219,36 @@ const Home = () => {
         </div>
         <div className="main">
           <Header />
-          <Banner bannerListDto={bannerListDto} />
+          <div className="banner_container">
+            {bannerListDto.length === 1 ? (
+              <div
+                className="single-banner"
+                onClick={() => handleBannerClick(bannerListDto[0].subCategory)}
+              >
+                <img
+                  className="banner_img"
+                  src={bannerListDto[0].imgUrl}
+                  alt={`banner_img_${bannerListDto[0].subCategory}`}
+                />
+              </div>
+            ) : (
+              <div className="banners">
+                {bannerListDto.map((banner, index) => (
+                  <div
+                    className="banner"
+                    key={index}
+                    onClick={() => handleBannerClick(banner.subCategory)}
+                  >
+                    <img
+                      className="banner_img"
+                      src={banner.imgUrl}
+                      alt={`${banner.subCategory}`}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           <div className="select_container">
             <div className="bar_container">
               <Select
