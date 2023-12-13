@@ -310,7 +310,7 @@ const Home = () => {
               <div className="write_btn">글 작성 버튼</div>
             </div>
           </div>
-          <div className="board_container">
+          <div className="home_board_container">
             {boardListDto.map((board, index) => (
               <div className="board_element" key={index}>
                 <div className="board_content">

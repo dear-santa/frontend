@@ -176,7 +176,7 @@ html, body {
   "header_container"
   "banner_container"
   "select_container"
-  "board_container";
+  "home_board_container";
   grid-template-rows: 8% 32% 8% 52%;
 }
 
@@ -307,8 +307,8 @@ html, body {
 
 
 /* depth 2 - 보드판*/
-.board_container {
-  grid-area: board_container; 
+.home_board_container {
+  grid-area: home_board_container; 
   width: 100%;
   height: 100%;
 

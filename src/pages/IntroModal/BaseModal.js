@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/introModal.module.css";
+// import styles from "../../styles/introModal.module.css";
 
 export default function BaseModal({
   open,
@@ -14,16 +14,17 @@ export default function BaseModal({
   // footer: ReactNode (Array)
 
   return (
-    <div className={open ? styles.root : styles.rootDisable}>
-      <div className={styles.modalContainer}>
-        {title ? <p className={styles.title}>{title}</p> : null}
-        <div className={styles.modalBody} style={bodyStyle}>
-          {children}
-        </div>
-        {footer.length > 0 ? (
-          <div className={styles.footer}>{footer.map((d) => d)}</div>
-        ) : null}
-      </div>
-    </div>
+    <div></div>
+    // <div className={open ? styles.root : styles.rootDisable}>
+    //   <div className={styles.modalContainer}>
+    //     {title ? <p className={styles.title}>{title}</p> : null}
+    //     <div className={styles.modalBody} style={bodyStyle}>
+    //       {children}
+    //     </div>
+    //     {footer.length > 0 ? (
+    //       <div className={styles.footer}>{footer.map((d) => d)}</div>
+    //     ) : null}
+    //   </div>
+    // </div>
   );
 }

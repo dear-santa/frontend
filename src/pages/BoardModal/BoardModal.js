@@ -1,4 +1,4 @@
-import "../../styles/boardModal.css";
+// import "../../styles/boardModal.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
@@ -57,7 +57,7 @@ export default function BoardModal() {
     >
       <article className="board_container">
         <header className="board_header">
-          <h1 className="board_title">{board.title}</h1>
+          <h1 className="board_title home">{board.title}</h1>
           <div className="info_container">
             <img
               className="user_image"
