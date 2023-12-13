@@ -82,6 +82,21 @@ export default function BoardModal() {
     }
   }
 
+  const handleDelete = async (e, commentId) => {
+    e.preventDefault();
+  
+    const response = await axios({
+      url: `/api/v1/reply/${commentId}`, 
+      method: 'delete'
+    });
+  
+    if (response.status === 200) {
+      // 삭제가 성공적으로 이루어졌을 때의 처리
+    } else {
+      alert("댓글 삭제에 실패했습니다.");
+    }
+  }
+
   const modal = (
     <Modal className="modal_container" overlayClassName="overlay_modal" isOpen={true} onRequestClose={back} style={modalStyle}>
       <article className="board_container">
@@ -110,19 +125,26 @@ export default function BoardModal() {
         </section>
         <section className="comment_container">
           <form className="comment_input_container" onSubmit={handleSubmit}>
-            <input className="comment_input" type="text" name="comment" placeholder="댓글을 입력하세요." value={content} onChange={handleCommentChange}></input>
+            <textarea className="comment_input" name="comment" placeholder="댓글을 입력하세요." value={content} onChange={handleCommentChange} />
             <button className="comment_submit" type="submit">등록</button>
           </form>
-          <div className="comment_list_container">
+          <div className="comment_list">
             {commentList && commentList.replyListDto && commentList.replyListDto.map((comment, index) => (
-              <div key={index} className="comment_list">
+              <div key={index} className="comment">
                 <div className="info_container comment_info_container">
                   <img className="user_image" src={comment.userImgUrl} alt={comment.userImgUrl}></img>
                   <p className="user_name">{comment.userNickname}</p>
                   <p className="updated_date">{formatDate(comment.updatedDate)}</p>
                 </div>
-                <div className="comment">
+                <div className="content">
                   <p>{comment.content}</p>
+                </div>
+                <div className="delete_container">
+                  {comment.isMine && (
+                    <form onSubmit={(e) => handleDelete(e, comment.id)}>
+                      <button type="submit">삭제</button>
+                    </form>
+                  )}
                 </div>
               </div>
             ))}
