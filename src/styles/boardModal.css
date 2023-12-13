@@ -25,6 +25,10 @@
   color: var(--dark-gray);
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .overlay_modal {
   position: fixed;
   top: 0;
@@ -43,17 +47,36 @@
   height: 664px;
   outline: none;
   box-sizing: border-box;
-  background: #fff;
-  overflow-y: auto;
 }
 
 .board_container {
   width: 60%;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin: 0 auto;
+  padding: 30px 0;
+  overflow-y: auto;
 }
+
+.button_container {
+  display: flex;
+}
+
+.bg_button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.bg_button:first-child {
+  background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png);
+}
+
+.bg_button:nth-child(2) {
+  background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png);
+}
+
 /* 
 .board_header {  
   width: 90%;
@@ -67,8 +90,6 @@
 
 .info_container {
   display: grid;
-  width: 100%;
-  height: 100%;
   grid-template-areas: "user_image user_name updated_date";
   grid-template-columns: 10% 55% 35%;
   align-items: center;
@@ -96,6 +117,7 @@
 .updated_date {
   grid-area: updated_date;
   color: var(--gray);
+  text-align: right;
 }
 
 .board_image {
@@ -110,24 +132,60 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  color: var(--gray);
+  color: var(--light-gray);
 }
 
-.comment_list {
+.comment_input_container {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  padding: 10px;
+  background-color: var(--light-gray);
+  border-radius: 10px; 
+  margin-bottom: 20px;
+}
+
+.comment_input {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  height: 60px;
+  resize: none; /* 사용자가 크기를 조절하지 못하도록 함 */
+  overflow: auto; /* 내용이 많을 경우 스크롤 막대 표시 */
+}
+
+.comment_submit {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comment_submit:hover {
+  background-color: #0056b3;
+}
+
+.comment {
   display: grid;
   grid-template-areas: "comment_info_container"
     "comment";
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 3fr;
+  gap: 10px;
   background-color: var(--light-gray);
   padding: 20px;
   margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .comment_info_container {
   grid-area: comment_info_container;
 }
 
-.comment {
+.content {
   grid-area: comment;
 }
