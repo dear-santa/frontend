@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../styles/createBoardModal.css";
-function UploadForm() {
+function UploadForm(props) {
   const [file, setFile] = useState(null);
 
   const [boardCreateRequestDto, setBoardCreateRequestDto] = useState({
@@ -48,15 +48,13 @@ function UploadForm() {
     });
 
     if (response.status === 200) {
-      alert("게시글이 등록되었습니다.");
-      window.location.href = "/";
+      window.location.href = `/`;
     } else {
-      alert("게시글 등록에 실패했습니다.");
-      window.location.href = "/";
+      window.location.href = `/`;
     }
   };
   function cancel() {
-    window.location.href = "/";
+    props.closeModal();
   }
   const [boardImage, setBoardImage] = useState("");
 

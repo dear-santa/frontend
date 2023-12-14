@@ -378,7 +378,7 @@ const Home = () => {
                 className="write_btn"
                 onClick={() => {
                   setCategory();
-                  openModal(<UploadForm />);
+                  openModal(<UploadForm closeModal={closeModal} />);
                 }}
               >
                 글 작성
