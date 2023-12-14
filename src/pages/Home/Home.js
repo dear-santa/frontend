@@ -7,6 +7,7 @@ import Header from "./Header";
 import LogoContainer from "./LogoContainer";
 import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
 import CardModal from "../LoginModal/CardModal";
+import UploadForm from "../BoardCreateModal/CreateModal";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -323,7 +324,12 @@ const Home = () => {
                   <div className="search_bar_in">검색어를 입력해주세요 👻</div>
                 </div>
               </div>
-              <div className="write_btn">글 작성 버튼</div>
+              <div
+                className="write_btn"
+                onClick={() => openModal(<UploadForm />)}
+              >
+                글 작성 버튼
+              </div>
             </div>
           </div>
           <div className="home_board_container">
