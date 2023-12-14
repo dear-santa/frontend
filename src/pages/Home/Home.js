@@ -33,7 +33,7 @@ const Home = () => {
 
   // 페이징
   const [pageNum, setPageNum] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(100);
   const [hasMoreData, setHasMoreData] = useState(true);
 
   // 검색
@@ -65,15 +65,7 @@ const Home = () => {
         );
 
         const boardListData = await boardListResponse.json();
-
-        // 이전 데이터를 버리고 새로운 데이터로 대체
         setBoardListDto(boardListData.boardListDto);
-
-        // 나머지는 유지하고 새로운 데이터만 추가
-        setBoardListDto((prevBoardList) => [
-          ...prevBoardList,
-          ...boardListData.boardListDto,
-        ]);
 
         // Check if there is more data
         if (boardListData.boardListDto.length === 0) {
@@ -139,11 +131,22 @@ const Home = () => {
       apiPath = `/api/v1/board/category?mainCategory=${category}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
     }
 
-    window.sessionStorage.setItem("mainCategory", category);
-    if (category === "HOME" || category === "MEMORY") {
-      window.sessionStorage.setItem("subCategory", "추억");
+    if (category === "HOME" || category === "MY_PAGE") {
+      window.sessionStorage.setItem("mainCategory", "MEMORY");
     } else {
-      window.sessionStorage.setItem("subCategory", null);
+      window.sessionStorage.setItem("mainCategory", category);
+    }
+
+    if (
+      category === "HOME" ||
+      category === "MEMORY" ||
+      category === "MY_PAGE"
+    ) {
+      window.sessionStorage.setItem("subCategory", "추억");
+    } else if (category === "PRESENT") {
+      window.sessionStorage.setItem("subCategory", "황금 마카롱");
+    } else if (category === "RESTAURANT") {
+      window.sessionStorage.setItem("subCategory", "카페 레이어드");
     }
     try {
       console.log(
@@ -289,7 +292,13 @@ const Home = () => {
     // Navigate to the BoardModal component with the specific boardId
     navigate(`/board/${boardId}`, { state: { modal: true } });
   };
-
+  const setCategory = () => {
+    let mainCategory = window.sessionStorage.getItem("mainCategory");
+    if (mainCategory === null) {
+      window.sessionStorage.setItem("mainCategory", "MEMORY");
+      window.sessionStorage.setItem("subCategory", "추억");
+    }
+  };
   return (
     <div className="main">
       {currentModal && currentModal}
@@ -359,17 +368,15 @@ const Home = () => {
                     value={keyword}
                     onChange={handleInputChange}
                   />
-                  <button
-                    className="search_bar click_event"
-                    onClick={handleSearch}
-                  >
-                    검색
-                  </button>
+                  <button onClick={handleSearch}>검색</button>
                 </div>
               </div>
               <div
                 className="write_btn"
-                onClick={() => openModal(<UploadForm />)}
+                onClick={() => {
+                  setCategory();
+                  openModal(<UploadForm />);
+                }}
               >
                 글 작성
               </div>
