@@ -3,6 +3,7 @@
 import Select from "react-select";
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import Header from "./Header";
 import LogoContainer from "./LogoContainer";
 import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
@@ -34,6 +35,9 @@ const Home = () => {
   const [pageNum, setPageNum] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [hasMoreData, setHasMoreData] = useState(true);
+
+  // 검색
+  const [keyword, setKeyword] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -221,6 +225,27 @@ const Home = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get('/api/v1/board/category', {
+        params: {
+          keyword,
+          pageNum: 1,
+          pageSize: 5,
+          sorted: 'LATEST',
+        },
+      });
+      console.log(response);      
+      setBoardListDto(response.data.boardListDto);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const openModal = (modalComponent) => {
     setCurrentModal(modalComponent);
   };
@@ -320,9 +345,16 @@ const Home = () => {
                 onChange={handleSortingSelectChange}
               />
               <div>
-                <div className="search_bar">
-                  <div className="search_bar_in">검색어를 입력해주세요 👻</div>
-                </div>
+              <div className="search_bar">
+                <input 
+                  type="text" 
+                  className="search_bar_in" 
+                  placeholder="검색어를 입력해주세요 👻" 
+                  value={keyword} 
+                  onChange={handleInputChange}
+                />
+                <button onClick={handleSearch}>검색</button>
+              </div>
               </div>
               <div
                 className="write_btn"
