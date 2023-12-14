@@ -378,7 +378,7 @@ const Home = () => {
                   openModal(<UploadForm />);
                 }}
               >
-                글 작성 버튼
+                글 작성
               </div>
             </div>
           </div>
@@ -398,11 +398,13 @@ const Home = () => {
                   <div className="board_writer_img">
                     <img
                       className="board_writer_img_url"
-                      src={board.userImgUrl}
-                      alt={`banner_img_${board.userNickname}`}
+                      src={board.memberImgUrl}
+                      alt={`banner_img_${board.memberNickname}`}
                     />
                   </div>
-                  <div className="board_writer_name">{board.userNickname}</div>
+                  <div className="board_writer_name">
+                    {board.memberNickname}
+                  </div>
                 </div>
               </div>
             ))}

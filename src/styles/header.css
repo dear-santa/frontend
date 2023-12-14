@@ -4,17 +4,18 @@
   justify-content: right;
   gap: 10px;
   height: 100%;
-  margin-right: 300px;
+  margin-right: 18%;
 }
 
 .header_profile_image {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
+  /* border-radius: 50%;
+  border: 1px solid #ccc; */
 }
 
 .header_profile_nickname {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.0rem;
+  font-weight: 500;
+  margin-left: 1%;
 }

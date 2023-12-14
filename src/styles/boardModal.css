@@ -38,7 +38,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--light-gray); /* 임시 셋팅 */
+  background-color: rgb(38, 39, 57, 0.1);
+  /* background-color: var(--light-gray); 임시 셋팅 */
 }
 
 .modal_container {
@@ -83,7 +84,8 @@
   margin: auto;
 } */
 
-.board_title {
+.board_title.board_modal {
+  margin-top: 10%;
   /* font-size: 32px;
   font-weight: bold; */
 }
@@ -132,7 +134,8 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  color: var(--light-gray);
+  font-size: small;
+  color: rgba(0, 0, 0, 0.1);
 }
 
 .comment_input_container {
@@ -140,7 +143,7 @@
   justify-content: space-between; 
   align-items: center;
   padding: 10px;
-  background-color: var(--light-gray);
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 10px; 
   margin-bottom: 20px;
 }
@@ -156,9 +159,10 @@
 }
 
 .comment_submit {
+
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0, 0.5);
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -166,7 +170,7 @@
 }
 
 .comment_submit:hover {
-  background-color: #0056b3;
+  background-color: #fff4f4;
 }
 
 .comment {
@@ -176,10 +180,12 @@
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 3fr;
   gap: 10px;
-  background-color: var(--light-gray);
+  color: grey;
+  background-color: rgba(255, 255, 255, 0.2);
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
+  max-height: 50vh;
 }
 
 .comment_info_container {
