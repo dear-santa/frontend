@@ -131,11 +131,22 @@ const Home = () => {
       apiPath = `/api/v1/board/category?mainCategory=${category}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
     }
 
-    window.sessionStorage.setItem("mainCategory", category);
-    if (category === "HOME" || category === "MEMORY") {
-      window.sessionStorage.setItem("subCategory", "추억");
+    if (category === "HOME" || category === "MY_PAGE") {
+      window.sessionStorage.setItem("mainCategory", "MEMORY");
     } else {
-      window.sessionStorage.setItem("subCategory", null);
+      window.sessionStorage.setItem("mainCategory", category);
+    }
+
+    if (
+      category === "HOME" ||
+      category === "MEMORY" ||
+      category === "MY_PAGE"
+    ) {
+      window.sessionStorage.setItem("subCategory", "추억");
+    } else if (category === "PRESENT") {
+      window.sessionStorage.setItem("subCategory", "황금 마카롱");
+    } else if (category === "RESTAURANT") {
+      window.sessionStorage.setItem("subCategory", "카페 레이어드");
     }
     try {
       console.log(
@@ -281,7 +292,13 @@ const Home = () => {
     // Navigate to the BoardModal component with the specific boardId
     navigate(`/board/${boardId}`, { state: { modal: true } });
   };
-
+  const setCategory = () => {
+    let mainCategory = window.sessionStorage.getItem("mainCategory");
+    if (mainCategory === null) {
+      window.sessionStorage.setItem("mainCategory", "MEMORY");
+      window.sessionStorage.setItem("subCategory", "추억");
+    }
+  };
   return (
     <div className="main">
       {currentModal && currentModal}
@@ -356,7 +373,10 @@ const Home = () => {
               </div>
               <div
                 className="write_btn"
-                onClick={() => openModal(<UploadForm />)}
+                onClick={() => {
+                  setCategory();
+                  openModal(<UploadForm />);
+                }}
               >
                 글 작성 버튼
               </div>
