@@ -253,12 +253,11 @@ html, body {
   grid-template-areas: 
   "sorted_bar search_bar write_btn";
   grid-template-columns: 15% 65% 20%; 
-  
 }
 
 .write_btn {
   grid-area: write_btn; 
-  width: 80%;
+  width: 60%;
   height: 50%;
 
   align-items: center; /* 세로 중앙 정렬을 위해 추가 */
@@ -266,6 +265,9 @@ html, body {
   font-size: 50%;
   color: rgb(0, 0, 0, 0.6);
   margin-top: 5%;
+  border-radius: 10%;
+  background-color: rgba(238, 238, 238, 0.3);
+
 
   display: flex; /* Add flex display to use flex properties */
   justify-content: center; /* Center content horizontally */
@@ -303,11 +305,18 @@ html, body {
   display: flex; /* Add flex display to use flex properties */
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
+  background-color: rgba(221, 221, 221, 0.15);
+  padding-top: 3%;
+  padding-bottom: 3%;
 }
 .search_bar .click_event {
   color: rgba(0, 0, 0, 0.6);
   width: 100%;
 }
+
+/* .search_btn {
+  margin-left: 50%;
+} */
 
 /* depth 2 - 보드판*/
 .home_board_container {
@@ -390,7 +399,7 @@ html, body {
 .board_preview_home {
   grid-area: board_preview_home;
   width: 90%;
-  max-height: 12vh;
+  max-height: 10vh;
   overflow: hidden; /* 초과 내용 감춤 */
   
   font-family: "NotoSansKR-Normal";

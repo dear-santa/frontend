@@ -26,7 +26,9 @@
   background-image: url("../assets/image/boardBackground1.png");
   background-size: cover;
   overflow-y: auto;
-  border-radius: 25px;
+
+  /* border-radius: 25px; */
+
 }
 
 .create_container {

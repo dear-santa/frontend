@@ -19,7 +19,8 @@ const Home = () => {
     { value: "LATEST", label: "최신순" },
     { value: "VIEW_COUNT", label: "조회수" },
     { value: "REPLY_COUNT", label: "댓글수" },
-    { value: "LIKE_COUNT", label: "추천수" },
+    // ,
+    // { value: "LIKE_COUNT", label: "추천수" },
   ];
 
   const [mainCategories, setMainCategories] = useState([]);
@@ -368,7 +369,9 @@ const Home = () => {
                     value={keyword}
                     onChange={handleInputChange}
                   />
-                  <button onClick={handleSearch}>검색</button>
+                  <button className="search_btn" onClick={handleSearch}>
+                    검색
+                  </button>
                 </div>
               </div>
               <div
