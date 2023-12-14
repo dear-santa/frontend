@@ -3,13 +3,10 @@
 import Select from "react-select";
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
-import Banner from "./Banner";
 import Header from "./Header";
-import BoardContainer from "./BoardContainer";
 import LogoContainer from "./LogoContainer";
 import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
 import CardModal from "../LoginModal/CardModal";
-import BoardModal from "../BoardModal/BoardModal";
 
 const Home = () => {
   const [currentModal, setCurrentModal] = useState(null);
@@ -133,8 +130,8 @@ const Home = () => {
     try {
       const response = await fetch(apiPath, {
         headers: {
-          Authoriaztion:
-            "Bearer eyJhbGciOiJIUzUxMiJ9..fnxrSjzy8OVs00oqnfe7UiNA86DsiBdkfIuKIg40-g--E3Zfqxn0K2sI4aXlc2YAT9fF4dri94ldvsoA71nLEw",
+          Authoriaztion: localStorage.getItem("accessToken"),
+          Accept: "application/json",
         },
         method: "GET",
       });
