@@ -7,7 +7,7 @@ import Header from "./Header";
 import LogoContainer from "./LogoContainer";
 import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
 import CardModal from "../LoginModal/CardModal";
-import CreateBoard from "../BoardCreateModal/CreateBoardComponent";
+import UploadForm from "../BoardCreateModal/CreateModal";
 const Home = () => {
   const [currentModal, setCurrentModal] = useState(null);
 
@@ -306,7 +306,7 @@ const Home = () => {
               </div>
               <div
                 className="write_btn"
-                onClick={() => openModal(<CreateBoard />)}
+                onClick={() => openModal(<UploadForm />)}
               >
                 글 작성 버튼
               </div>
