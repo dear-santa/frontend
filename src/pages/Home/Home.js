@@ -3,7 +3,7 @@
 import Select from "react-select";
 import "../../styles/Home.css";
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import Header from "./Header";
 import LogoContainer from "./LogoContainer";
 import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
@@ -33,11 +33,11 @@ const Home = () => {
 
   // 페이징
   const [pageNum, setPageNum] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(100);
   const [hasMoreData, setHasMoreData] = useState(true);
 
   // 검색
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,15 +65,7 @@ const Home = () => {
         );
 
         const boardListData = await boardListResponse.json();
-
-        // 이전 데이터를 버리고 새로운 데이터로 대체
         setBoardListDto(boardListData.boardListDto);
-
-        // 나머지는 유지하고 새로운 데이터만 추가
-        setBoardListDto((prevBoardList) => [
-          ...prevBoardList,
-          ...boardListData.boardListDto,
-        ]);
 
         // Check if there is more data
         if (boardListData.boardListDto.length === 0) {
@@ -237,15 +229,15 @@ const Home = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get('/api/v1/board/category', {
+      const response = await axios.get("/api/v1/board/category", {
         params: {
           keyword,
           pageNum: 1,
           pageSize: 5,
-          sorted: 'LATEST',
+          sorted: "LATEST",
         },
       });
-      console.log(response);      
+      console.log(response);
       setBoardListDto(response.data.boardListDto);
     } catch (error) {
       console.log(error);
@@ -351,16 +343,16 @@ const Home = () => {
                 onChange={handleSortingSelectChange}
               />
               <div>
-              <div className="search_bar">
-                <input 
-                  type="text" 
-                  className="search_bar_in" 
-                  placeholder="검색어를 입력해주세요 👻" 
-                  value={keyword} 
-                  onChange={handleInputChange}
-                />
-                <button onClick={handleSearch}>검색</button>
-              </div>
+                <div className="search_bar">
+                  <input
+                    type="text"
+                    className="search_bar_in"
+                    placeholder="검색어를 입력해주세요 👻"
+                    value={keyword}
+                    onChange={handleInputChange}
+                  />
+                  <button onClick={handleSearch}>검색</button>
+                </div>
               </div>
               <div
                 className="write_btn"
