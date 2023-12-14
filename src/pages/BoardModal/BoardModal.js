@@ -123,17 +123,9 @@ export default function BoardModal() {
       onRequestClose={back}
       style={modalStyle}
     >
-      <article className="board_container">
-        <header className="board_header">
+      <article className="board_container board_modal">
+        <header className="board_header board_modal">
           <div className="button_container">
-            <button
-              className="bg_button"
-              onClick={() =>
-                changeBackground(
-                  "https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_1.png"
-                )
-              }
-            ></button>
             <button
               className="bg_button"
               onClick={() =>
@@ -142,15 +134,23 @@ export default function BoardModal() {
                 )
               }
             ></button>
+            <button
+              className="bg_button"
+              onClick={() =>
+                changeBackground(
+                  "https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_3.png"
+                )
+              }
+            ></button>
           </div>
           <h1 className="board_title board_modal">{board.title}</h1>
           <div className="info_container">
             <img
               className="user_image"
-              src={board.userImgUrl}
-              alt={board.userImgUrl}
+              src={board.memberImgUrl}
+              alt={board.memberImgUrl}
             ></img>
-            <p className="user_name">{board.userNickname}</p>
+            <p className="user_name">{board.memberNickname}</p>
             <p className="updated_date">{formatDate(board.updatedDate)}</p>
           </div>
         </header>
