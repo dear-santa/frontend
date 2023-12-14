@@ -122,6 +122,7 @@ const Home = () => {
   const handleCategoryClick = async (category) => {
     // Update the selected category when a category is clicked
     setSelectedMainCategory(category);
+    setKeyword("");
     let apiPath = "";
     console.log("category " + category);
     if (category === "MY_PAGE") {
