@@ -264,7 +264,7 @@ html, body {
   align-items: center; /* 세로 중앙 정렬을 위해 추가 */
   font-family: "NotoSansKR-Normal";
   font-size: 50%;
-  color: rgba(129, 129, 129, 0.5);
+  color: rgb(0, 0, 0, 0.6);
   margin-top: 5%;
 
   display: flex; /* Add flex display to use flex properties */
@@ -298,13 +298,16 @@ html, body {
   height: 40%;
   font-family: "NotoSansKR-Normal";
   font-size: 50%;
-  color: rgb(80, 80, 80, 0.5);
+  color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   display: flex; /* Add flex display to use flex properties */
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
 }
-
+.search_bar .click_event {
+  color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+}
 
 /* depth 2 - 보드판*/
 .home_board_container {
@@ -330,7 +333,7 @@ html, body {
   justify-content: center;
   margin-bottom: 2%;
 
-  background-image: url('https://private-user-images.githubusercontent.com/77563814/290263165-8ae70eca-c024-4cbc-9e1b-3c6006e0890e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDI0ODU4NDMsIm5iZiI6MTcwMjQ4NTU0MywicGF0aCI6Ii83NzU2MzgxNC8yOTAyNjMxNjUtOGFlNzBlY2EtYzAyNC00Y2JjLTllMWItM2M2MDA2ZTA4OTBlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMTMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjEzVDE2MzkwM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTNiZTE0ZDlkMTg2M2U2NGI3NTJjMTk4YzdhMTMzYzE3ZWZhMWJlNzQ3Zjk1NmI5MjgyZWQ5NDdjNWZlN2I2NTUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.BHwcleY5TXyrEJtJJEiPW0CdUihNT4zPM5glNUuVWuQ');
+  background-image: url('https://dearsanta-image.s3.ap-northeast-2.amazonaws.com/letter1.png');
     /* 배경 이미지 크기 조절 (cover, contain 등 사용) */
     background-size: cover;
     /* 배경 이미지 고정 여부 (fixed 또는 scroll) */  
