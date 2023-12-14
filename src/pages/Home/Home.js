@@ -101,7 +101,7 @@ const Home = () => {
   ]);
 
   const handleScroll = () => {
-    // Check if the user has scrolled to the bottom of the page
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     if (
       window.innerHeight + document.documentElement.scrollTop ===
         document.documentElement.offsetHeight &&
