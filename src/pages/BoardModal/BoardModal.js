@@ -8,14 +8,18 @@ Modal.setAppElement("#root"); // accessibility purposes
 
 function formatDate(timestamp) {
   const date = new Date(timestamp);
-  const pad = (n) => n < 10 ? '0' + n : n;
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+  const pad = (n) => (n < 10 ? "0" + n : n);
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+    date.getDate()
+  )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
+    date.getSeconds()
+  )}`;
 }
 
 export default function BoardModal() {
   const [board, setBoard] = useState(null);
-  const [commentList, setCommentList] = useState({replyListDto: []});
-  const [content, setContent] = useState('');
+  const [commentList, setCommentList] = useState({ replyListDto: [] });
+  const [content, setContent] = useState("");
   const { boardId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,8 +28,9 @@ export default function BoardModal() {
   const [modalStyle, setModalStyle] = useState({
     overlay: {},
     content: {
-      backgroundImage: "url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png)"
-    }
+      backgroundImage:
+        "url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png)",
+    },
   });
 
   // 게시글 및 댓글 가져오기
@@ -46,7 +51,7 @@ export default function BoardModal() {
   }, [boardId]);
   if (!board) return null;
 
-  const back = e => {
+  const back = (e) => {
     e.stopPropagation();
     navigate(-1);
   };
@@ -55,59 +60,83 @@ export default function BoardModal() {
     setModalStyle({
       overlay: {},
       content: {
-        backgroundImage: `url(${newImage})`
-      }
-    })
-  }
-  
+        backgroundImage: `url(${newImage})`,
+      },
+    });
+  };
+
   const handleCommentChange = (e) => {
     setContent(e.target.value);
-  }
-  
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const response = await axios({
       url: `/api/v1/board/${boardId}/reply/new`,
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      data: JSON.stringify({ content })
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify({ content }),
     });
-    
+
     if (response.status === 200) {
-      setContent('');
+      setContent("");
       fetchData();
     } else {
       alert("댓글 등록에 실패했습니다.");
     }
-  }
+  };
 
   const handleDelete = async (e, commentId) => {
     e.preventDefault();
-  
+
     const response = await axios({
-      url: `/api/v1/reply/${commentId}`, 
-      method: 'delete'
+      url: `/api/v1/reply/${commentId}`,
+      method: "delete",
     });
-  
+
     if (response.status === 200) {
       // 삭제가 성공적으로 이루어졌을 때의 처리
     } else {
       alert("댓글 삭제에 실패했습니다.");
     }
-  }
+  };
 
   const modal = (
-    <Modal className="modal_container" overlayClassName="overlay_modal" isOpen={true} onRequestClose={back} style={modalStyle}>
+    <Modal
+      className="modal_container"
+      overlayClassName="overlay_modal"
+      isOpen={true}
+      onRequestClose={back}
+      style={modalStyle}
+    >
       <article className="board_container">
         <header className="board_header">
           <div className="button_container">
-            <button className="bg_button" onClick={() => changeBackground('https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_1.png')}></button>
-            <button className="bg_button" onClick={() => changeBackground('https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png')}></button>
+            <button
+              className="bg_button"
+              onClick={() =>
+                changeBackground(
+                  "https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_1.png"
+                )
+              }
+            ></button>
+            <button
+              className="bg_button"
+              onClick={() =>
+                changeBackground(
+                  "https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png"
+                )
+              }
+            ></button>
           </div>
           <h1 className="board_title">{board.title}</h1>
           <div className="info_container">
-            <img className="user_image" src={board.userImgUrl} alt={board.userImgUrl}></img>
+            <img
+              className="user_image"
+              src={board.userImgUrl}
+              alt={board.userImgUrl}
+            ></img>
             <p className="user_name">{board.userNickname}</p>
             <p className="updated_date">{formatDate(board.updatedDate)}</p>
           </div>
@@ -116,7 +145,9 @@ export default function BoardModal() {
           <p>{board.content}</p>
         </section>
         <section className="image_container">
-          {board.imgUrl && <img className="board_image" src={board.imgUrl} alt=""></img>}
+          {board.imgUrl && (
+            <img className="board_image" src={board.imgUrl} alt=""></img>
+          )}
         </section>
         <section className="count_container">
           <p aria-label="like_count">{board.likeCount}</p>
@@ -125,32 +156,48 @@ export default function BoardModal() {
         </section>
         <section className="comment_container">
           <form className="comment_input_container" onSubmit={handleSubmit}>
-            <textarea className="comment_input" name="comment" placeholder="댓글을 입력하세요." value={content} onChange={handleCommentChange} />
-            <button className="comment_submit" type="submit">등록</button>
+            <textarea
+              className="comment_input"
+              name="comment"
+              placeholder="댓글을 입력하세요."
+              value={content}
+              onChange={handleCommentChange}
+            />
+            <button className="comment_submit" type="submit">
+              등록
+            </button>
           </form>
           <div className="comment_list">
-            {commentList && commentList.replyListDto && commentList.replyListDto.map((comment, index) => (
-              <div key={index} className="comment">
-                <div className="info_container comment_info_container">
-                  <img className="user_image" src={comment.userImgUrl} alt={comment.userImgUrl}></img>
-                  <p className="user_name">{comment.userNickname}</p>
-                  <p className="updated_date">{formatDate(comment.updatedDate)}</p>
+            {commentList &&
+              commentList.replyListDto &&
+              commentList.replyListDto.map((comment, index) => (
+                <div key={index} className="comment">
+                  <div className="info_container comment_info_container">
+                    <img
+                      className="user_image"
+                      src={comment.userImgUrl}
+                      alt={comment.userImgUrl}
+                    ></img>
+                    <p className="user_name">{comment.userNickname}</p>
+                    <p className="updated_date">
+                      {formatDate(comment.updatedDate)}
+                    </p>
+                  </div>
+                  <div className="content">
+                    <p>{comment.content}</p>
+                  </div>
+                  <div className="delete_container">
+                    {comment.isMine && (
+                      <form onSubmit={(e) => handleDelete(e, comment.id)}>
+                        <button type="submit">삭제</button>
+                      </form>
+                    )}
+                  </div>
                 </div>
-                <div className="content">
-                  <p>{comment.content}</p>
-                </div>
-                <div className="delete_container">
-                  {comment.isMine && (
-                    <form onSubmit={(e) => handleDelete(e, comment.id)}>
-                      <button type="submit">삭제</button>
-                    </form>
-                  )}
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
-        </section>        
-      </article>      
+        </section>
+      </article>
     </Modal>
   );
   return isModal ? modal : <div>{modal}</div>;

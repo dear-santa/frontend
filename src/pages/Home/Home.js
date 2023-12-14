@@ -8,8 +8,11 @@ import LogoContainer from "./LogoContainer";
 import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
 import CardModal from "../LoginModal/CardModal";
 import UploadForm from "../BoardCreateModal/CreateModal";
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
   const [currentModal, setCurrentModal] = useState(null);
+  const navigate = useNavigate();
 
   const selectOptions = [
     { value: "LATEST", label: "최신순" },
@@ -92,7 +95,13 @@ const Home = () => {
     };
 
     fetchData();
-  }, [selectedMainCategory, selectedSorting, pageNum]); // Trigger useEffect when selectedCategory changes
+  }, [
+    selectedMainCategory,
+    selectedSorting,
+    pageNum,
+    pageSize,
+    selectedSubCategory,
+  ]);
 
   const handleScroll = () => {
     // Check if the user has scrolled to the bottom of the page
@@ -128,9 +137,15 @@ const Home = () => {
     }
 
     try {
+      console.log(
+        "localStorage.getItem(accessToken) => " +
+          localStorage.getItem("accessToken")
+      );
+
+      console.log("apiPath : " + apiPath);
       const response = await fetch(apiPath, {
         headers: {
-          Authoriaztion: localStorage.getItem("accessToken"),
+          Authorization: localStorage.getItem("accessToken"),
           Accept: "application/json",
         },
         method: "GET",
@@ -238,10 +253,15 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 상세 페이지 조회
+  const handleBoardClick = (boardId) => {
+    // Navigate to the BoardModal component with the specific boardId
+    navigate(`/board/${boardId}`, { state: { modal: true } });
+  };
+
   return (
     <div className="main">
       {currentModal && currentModal}
-
       <div className="container">
         <div className="side">
           <LogoContainer />
@@ -314,11 +334,15 @@ const Home = () => {
           </div>
           <div className="home_board_container">
             {boardListDto.map((board, index) => (
-              <div className="board_element" key={index}>
+              <div
+                className="board_element"
+                key={index}
+                onClick={() => handleBoardClick(board.id)}
+              >
                 <div className="board_content">
-                  <div className="board_title">{board.title}</div>
+                  <div className="board_title_home">{board.title}</div>
                   {/* <div className="board_hashtag">{board.hashtags}</div> */}
-                  <div className="board_preview">{board.content}</div>
+                  <div className="board_preview_home">{board.content}</div>
                 </div>
                 <div className="board_writer">
                   <div className="board_writer_img">
