@@ -1,8 +1,8 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
-  const target =
-    "http://3.37.219.154";
+  // process.env.REACT_APP_BACK_SERVER_URL
+  const target = "http://localhost:8080";
 
   app.use(
     "/api/v1",
