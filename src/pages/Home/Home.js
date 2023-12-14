@@ -100,13 +100,13 @@ const Home = () => {
     selectedSubCategory,
   ]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-
   const handleScroll = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (
       window.innerHeight + document.documentElement.scrollTop ===
         document.documentElement.offsetHeight &&
       hasMoreData
+      // eslint-disable-next-line
     ) {
       // Increment the page number and fetch the next page
       setPageNum((prevPageNum) => prevPageNum + 1);
@@ -116,6 +116,7 @@ const Home = () => {
   // Attach the handleScroll function to the scroll event
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+    // eslint-disable-next-line
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
