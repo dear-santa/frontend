@@ -99,6 +99,7 @@ const Home = () => {
     pageSize,
     selectedSubCategory,
   ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const handleScroll = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
