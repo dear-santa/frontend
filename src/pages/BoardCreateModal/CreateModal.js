@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import "../../styles/createBoardModal.css";
 function UploadForm() {
   const [file, setFile] = useState(null);
-  const [boardRequestDto, setBoardRequestDto] = useState({
-    boardCategoryId: "",
+
+  const [boardCreateRequestDto, setBoardCreateRequestDto] = useState({
+    boardCategoryId: "2",
     title: "",
     content: "",
+    mainCategory: window.sessionStorage.getItem("mainCategory"),
+    subCategory: window.sessionStorage.getItem("subCategory"),
   });
-  // select box
-  // const selectList = [
-  //   { value: "2", name: "추억" },
-  //   { value: "3", name: "선물" },
-  //   { value: "4", name: "식당" },
-  // ];
-  // const [boardCategoryId, setSelected] = useState("boardCategoryId");
 
   const handleFileChange = (e) => {
     handleImageChange(e);
@@ -21,15 +17,11 @@ function UploadForm() {
   };
 
   const handleTextChange = (e) => {
-    setBoardRequestDto({
-      ...boardRequestDto,
+    setBoardCreateRequestDto({
+      ...boardCreateRequestDto,
       [e.target.name]: e.target.value,
     });
   };
-
-  // const handleSelect = (e) => {
-  //   setSelected(e.target.value);
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,8 +33,10 @@ function UploadForm() {
       formData.append("boardImage", file);
     }
     formData.append(
-      "boardRequestDto",
-      new Blob([JSON.stringify(boardRequestDto)], { type: "application/json" })
+      "boardCreateRequestDto",
+      new Blob([JSON.stringify(boardCreateRequestDto)], {
+        type: "application/json",
+      })
     );
 
     const response = await fetch("/api/v1/auth/board/new", {
@@ -99,27 +93,12 @@ function UploadForm() {
           </header>
           <div className="card-body">
             <form onSubmit={handleSubmit}>
-              {/* <section className="category_container">
-                <select
-                  className="boardCategoryId"
-                  onChange={handleSelect}
-                  value={boardCategoryId}
-                >
-                  {selectList.map((item) => {
-                    return (
-                      <option value={item.value} key={item.value}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </section> */}
               <section className="title_container">
                 <input
                   type="text"
                   placeholder="제목을 입력해주세요"
                   className="form-title"
-                  value={boardRequestDto.title}
+                  value={boardCreateRequestDto.title}
                   onChange={handleTextChange}
                   name="title"
                 />
@@ -128,7 +107,7 @@ function UploadForm() {
               <section className="content_container">
                 <textarea
                   type="text"
-                  value={boardRequestDto.content}
+                  value={boardCreateRequestDto.content}
                   onChange={handleTextChange}
                   placeholder="크리스마스의 추억을 공유해주세요"
                   className="form-content"

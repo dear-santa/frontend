@@ -126,7 +126,6 @@ const Home = () => {
   const handleCategoryClick = async (category) => {
     // Update the selected category when a category is clicked
     setSelectedMainCategory(category);
-
     let apiPath = "";
     console.log("category " + category);
     if (category === "MY_PAGE") {
@@ -136,6 +135,12 @@ const Home = () => {
       apiPath = `/api/v1/board/category?mainCategory=${category}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
     }
 
+    window.sessionStorage.setItem("mainCategory", category);
+    if (category === "HOME" || category === "MEMORY") {
+      window.sessionStorage.setItem("subCategory", "추억");
+    } else {
+      window.sessionStorage.setItem("subCategory", null);
+    }
     try {
       console.log(
         "localStorage.getItem(accessToken) => " +
@@ -167,7 +172,6 @@ const Home = () => {
   const handleBannerClick = async (subCategory) => {
     // Update the selected subcategory when a banner is clicked
     setSelectedSubCategory(subCategory);
-
     try {
       // Fetch board list based on selected category, subcategory, and other parameters
       const response = await fetch(
@@ -178,7 +182,9 @@ const Home = () => {
           },
           method: "GET",
         }
-      );
+      ).then(() => {
+        window.sessionStorage.setItem("subCategory", subCategory);
+      });
 
       const data = await response.json();
 
