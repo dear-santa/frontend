@@ -14,8 +14,8 @@ const IntroModal = ({ closeModal, openCardModal }) => {
         <div className="card">
           <div className="clickMe" onClick={() => openCardModal()}>
             <div>
-              <img src="harry.png" alt="icon" />
-              <div>Open Me</div>
+              <img className="first-harry" src="harry.png" alt="icon" />
+              <p className="beige-color">Open Me</p>
             </div>
           </div>
         </div>,

@@ -182,7 +182,8 @@ const Home = () => {
 
   const handleBannerClick = async (subCategory) => {
     // Update the selected subcategory when a banner is clicked
-    setSelectedSubCategory(subCategory);
+    setSelectedSubCategory(subCategory);    
+    setSelectedSorting('');
     try {
       // Fetch board list based on selected category, subcategory, and other parameters
       const response = await fetch(

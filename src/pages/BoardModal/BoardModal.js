@@ -125,7 +125,7 @@ export default function BoardModal() {
     >
       <article className="board_container board_modal">
         <header className="board_header board_modal">
-          <div className="button_container">
+          {/* <div className="button_container">
             <button
               className="bg_button"
               onClick={() =>
@@ -141,8 +141,8 @@ export default function BoardModal() {
                   "https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_3.png"
                 )
               }
-            ></button>
-          </div>
+            ></button> 
+          </div>*/}
           <h1 className="board_title board_modal">{board.title}</h1>
           <div className="info_container">
             <img
