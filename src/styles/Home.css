@@ -463,3 +463,12 @@ html, body {
   font-size: 12px;
   color: rgba(43, 43, 43, 0.5);
 }
+
+.clickMe {
+  cursor: pointer;
+}
+
+.openMe {
+  color: rgb(210, 195, 195);
+  font-size: 25px;
+}

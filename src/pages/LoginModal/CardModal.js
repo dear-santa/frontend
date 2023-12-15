@@ -16,7 +16,7 @@ const CardModal = () => {
           <div className="iconimg">
             <KakaoLogin />
           </div>
-          <p>kakao</p>
+          <p>Kakao</p>
         </div>,
         <div
           className="icon"

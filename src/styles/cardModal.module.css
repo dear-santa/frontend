@@ -24,7 +24,7 @@
     width: 897px;
     height: 664px;
     animation: modal-show 2s;
-    background-image: url("../assets/image/cardbg2.png");
+    background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png);
     background-size: cover;
     margin: auto;
   }
@@ -44,8 +44,8 @@
     padding: 0 10px;
     margin-left: auto;
     margin-right: auto;
-    color: #cd9f7e;
-    font-size: 32px;
+    color: rgb(199, 97,97);
+    font-size: 40px;
     margin-top: 25%;
   }
   
@@ -65,8 +65,6 @@
   }
   
   .icon {
-    width: 74px;
-    height: 74px;
     line-height: 30px;
     margin-left: 10px;
     margin-right: 10px;
@@ -74,5 +72,10 @@
     outline: 0;
     border-radius: 3px;
     color: rgb(56, 56, 63);
+    cursor: pointer;
+  }
+
+  img[alt="icon_guest"] {
+    height: 68px;
   }
   
