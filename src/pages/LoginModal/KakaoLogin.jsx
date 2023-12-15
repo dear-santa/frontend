@@ -3,7 +3,7 @@ function KakaoLogin() {
   const client_id = "6ded82d87a247a0b4dc56c702bfdc94a";
   
   // process.env.REACT_APP_KAKAO_CLIENT_ID;
-  const redirect_uri = "https://dearsanta.shop/login";
+  const redirect_uri = "http://dearsanta.shop/login";
   
   // process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
