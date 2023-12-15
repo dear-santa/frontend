@@ -468,7 +468,20 @@ html, body {
   cursor: pointer;
 }
 
+.beige-color {
+  color: rgb(210, 195, 195);
+}
+
 .openMe {
   color: rgb(210, 195, 195);
   font-size: 25px;
+}
+
+.iconimg {
+  cursor: pointer;
+}
+
+.first-harry {
+  width: 90px;
+  margin-bottom: 5px;
 }
