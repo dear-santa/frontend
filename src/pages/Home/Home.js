@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "./Header";
 import LogoContainer from "./LogoContainer";
-import IntroModal from "../IntroModal/IntroModal"; // 각 모달 컴포넌트 import
+import IntroModal from "../IntroModal/IntroModal";
 import CardModal from "../LoginModal/CardModal";
 import UploadForm from "../BoardCreateModal/CreateModal";
 import { useNavigate } from "react-router-dom";
@@ -19,8 +19,6 @@ const Home = () => {
     { value: "LATEST", label: "최신순" },
     { value: "VIEW_COUNT", label: "조회수" },
     { value: "REPLY_COUNT", label: "댓글수" },
-    // ,
-    // { value: "LIKE_COUNT", label: "추천수" },
   ];
 
   const [mainCategories, setMainCategories] = useState([]);
@@ -50,30 +48,26 @@ const Home = () => {
           method: "GET",
         });
         const data = await response.json();
+        let startApi = `/api/v1/board/category?mainCategory=${selectedMainCategory}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
         console.log("categories api");
+        console.log(startApi);
         console.log(data.mainCategoriesDto);
         setMainCategories(data.mainCategoriesDto);
 
-        // Fetch board list based on selected category, page number, and page size
-        const boardListResponse = await fetch(
-          `/api/v1/board/category?mainCategory=${selectedMainCategory}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`,
-          {
-            headers: {
-              Accept: "application/json",
-            },
-            method: "GET",
-          }
-        );
+        const boardListResponse = await fetch(startApi, {
+          headers: {
+            Accept: "application/json",
+          },
+          method: "GET",
+        });
 
         const boardListData = await boardListResponse.json();
         setBoardListDto(boardListData.boardListDto);
 
-        // Check if there is more data
         if (boardListData.boardListDto.length === 0) {
           setHasMoreData(false);
         }
 
-        // Fetch banner list based on selected category
         const bannerListResponse = await fetch(
           `/api/v1/categories/main-categories/${selectedMainCategory}/sub-categories`,
           {
@@ -99,7 +93,6 @@ const Home = () => {
     pageSize,
     selectedSubCategory,
   ]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScroll = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (
@@ -108,12 +101,10 @@ const Home = () => {
       hasMoreData
       // eslint-disable-next-line
     ) {
-      // Increment the page number and fetch the next page
       setPageNum((prevPageNum) => prevPageNum + 1);
     }
   };
 
-  // Attach the handleScroll function to the scroll event
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     // eslint-disable-next-line
@@ -123,42 +114,30 @@ const Home = () => {
   }, [handleScroll]);
 
   const handleCategoryClick = async (category) => {
-    // Update the selected category when a category is clicked
     setSelectedMainCategory(category);
     setKeyword("");
     let apiPath = "";
     console.log("category " + category);
     if (category === "MY_PAGE") {
-      console.log("category === MY_PAGE " + (category === "MY_PAGE"));
       apiPath = `/api/v1/auth/board?pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
     } else {
       apiPath = `/api/v1/board/category?mainCategory=${category}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
     }
 
-    if (category === "HOME" || category === "MY_PAGE") {
-      window.sessionStorage.setItem("mainCategory", "MEMORY");
-    } else {
-      window.sessionStorage.setItem("mainCategory", category);
-    }
-
-    if (
-      category === "HOME" ||
-      category === "MEMORY" ||
-      category === "MY_PAGE"
-    ) {
-      window.sessionStorage.setItem("subCategory", "추억");
-    } else if (category === "PRESENT") {
+    if (category === "PRESENT") {
       window.sessionStorage.setItem("subCategory", "황금 마카롱");
     } else if (category === "RESTAURANT") {
       window.sessionStorage.setItem("subCategory", "카페 레이어드");
+    } else {
+      window.sessionStorage.setItem("subCategory", "추억");
     }
+
     try {
       console.log(
         "localStorage.getItem(accessToken) => " +
           localStorage.getItem("accessToken")
       );
 
-      console.log("apiPath : " + apiPath);
       const response = await fetch(apiPath, {
         headers: {
           Authorization: localStorage.getItem("accessToken"),
@@ -169,10 +148,8 @@ const Home = () => {
 
       const data = await response.json();
 
-      // Replace the existing board list with the new data
       setBoardListDto(data.boardListDto);
 
-      // Reset the page number and enable fetching more data
       setPageNum(1);
       setHasMoreData(true);
     } catch (error) {
@@ -181,28 +158,22 @@ const Home = () => {
   };
 
   const handleBannerClick = async (subCategory) => {
-    // Update the selected subcategory when a banner is clicked
     setSelectedSubCategory(subCategory);
     try {
-      // Fetch board list based on selected category, subcategory, and other parameters
-      const response = await fetch(
-        `/api/v1/board/category?mainCategory=${selectedMainCategory}&subCategory=${subCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-          method: "GET",
-        }
-      ).then(() => {
+      let apiPath = `/api/v1/board/category?mainCategory=${selectedMainCategory}&subCategory=${subCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedSorting}`;
+      console.log("handleBannerClick " + apiPath);
+      const response = await fetch(apiPath, {
+        headers: {
+          Accept: "application/json",
+        },
+        method: "GET",
+      }).then(() => {
         window.sessionStorage.setItem("subCategory", subCategory);
       });
 
       const data = await response.json();
-
-      // Replace the existing board list with the new data
       setBoardListDto(data.boardListDto);
 
-      // Reset the page number and enable fetching more data
       setPageNum(1);
       setHasMoreData(true);
     } catch (error) {
@@ -212,10 +183,8 @@ const Home = () => {
 
   const handleSortingSelectChange = async (selectedOption) => {
     try {
-      // 기존의 게시글 목록을 초기화합니다.
       setBoardListDto([]);
 
-      // 선택된 정렬 기준에 해당하는 게시글을 불러옵니다.
       const response = await fetch(
         `/api/v1/board/category?mainCategory=${selectedMainCategory}&subCategory=${selectedSubCategory}&pageNum=${pageNum}&pageSize=${pageSize}&sorted=${selectedOption.value}`,
         {
@@ -226,11 +195,7 @@ const Home = () => {
         }
       );
       const data = await response.json();
-
-      // 새로운 데이터로 갱신합니다.
       setBoardListDto(data.boardListDto);
-
-      // 페이징을 초기화합니다.
       setPageNum(1);
       setHasMoreData(true);
     } catch (error) {
@@ -288,7 +253,6 @@ const Home = () => {
       );
     };
     handleLoad();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 상세 페이지 조회

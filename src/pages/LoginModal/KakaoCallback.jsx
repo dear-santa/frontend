@@ -11,8 +11,6 @@ function KakaoCallback() {
       oauthType: "KAKAO",
     });
 
-    // const auth = process.env.REACT_APP_KAKAO_AUTHORIZATION;
-    
     //spring 서버로 인증키를 통해 유저정보를 획득하고 로그인 처리 요청
     axios({
       method: "POST",
@@ -20,9 +18,6 @@ function KakaoCallback() {
       data: sendData,
       headers: {
         "Content-type": "application/json",
-
-        // Authorization: auth,
-
       },
     })
       .then((response) => {
