@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/board/:boardId" element={<BoardModal />} />
-        <Route path="/login" element={<KakaoCallback />} />
+        <Route path="/oauth" element={<KakaoCallback />} />
       </Routes>
     </Router>
   );
