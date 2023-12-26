@@ -62,6 +62,7 @@ export default function BoardModal() {
     navigate(-1);
   };
 
+  // eslint-disable-next-line
   const changeBackground = (newImage) => {
     setModalStyle({
       overlay: {},
