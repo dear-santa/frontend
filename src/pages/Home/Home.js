@@ -94,7 +94,7 @@ const Home = () => {
     selectedSubCategory,
   ]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line
   const handleScroll = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (
@@ -256,7 +256,8 @@ const Home = () => {
       );
     };
     handleLoad();
-  }, [openCardModal]);
+    // eslint-disable-next-line
+  }, []);
 
   // 상세 페이지 조회
   const handleBoardClick = (boardId) => {
