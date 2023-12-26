@@ -234,6 +234,7 @@ const Home = () => {
     setCurrentModal(null);
   };
 
+  // eslint-disable-next-line
   const openCardModal = () => {
     closeModal(); // IntroModal 닫기
     openModal(<CardModal />);
