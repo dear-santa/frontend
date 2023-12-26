@@ -46,12 +46,14 @@
   position: relative;
   width: 897px;
   height: 664px;
+  padding-top: 1.5%;
   outline: none;
   box-sizing: border-box;
 }
 
 .board_container {
   width: 60%;
+  height: 97%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -68,14 +70,15 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  background-size: cover;
 }
 
 .bg_button:first-child {
-  background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png);
+  background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2_thumb.png);
 }
 
 .bg_button:nth-child(2) {
-  background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_2.png);
+  background-image: url(https://dearsanta-1.s3.ap-northeast-3.amazonaws.com/letter_style_3_thumb.png);
 }
 
 /* 
@@ -86,6 +89,7 @@
 
 .board_title.board_modal {
   margin-top: 10%;
+  margin-bottom: 10px;
   /* font-size: 32px;
   font-weight: bold; */
 }
